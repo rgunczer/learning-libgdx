@@ -22,7 +22,8 @@ public class MyGdxGameBounceUsingOrthoCameraNormCoords extends ApplicationAdapte
     float y;
     float xStep = speed;
     float yStep = speed;
-    float ch = 1.0f;
+    float viewportWidth = 1.0f;
+    float viewportHeight = 1.0f;
 
     @Override
     public void create () {
@@ -31,9 +32,9 @@ public class MyGdxGameBounceUsingOrthoCameraNormCoords extends ApplicationAdapte
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        ch = h / w;
+        viewportHeight = h / w;
 
-        camera = new OrthographicCamera(1, h / w);
+        camera = new OrthographicCamera(viewportWidth, viewportHeight);
 
         TextureRegion region = new TextureRegion(img, 0, 0, img.getWidth(), img.getHeight());
         sprite = new Sprite(region);
@@ -61,17 +62,17 @@ public class MyGdxGameBounceUsingOrthoCameraNormCoords extends ApplicationAdapte
         }
 
         y += yStep * deltaTime;
-        if (y + sprite.getHeight() > ch/2.0f) {
-            y = (ch / 2.0f) - sprite.getHeight();
+        if (y + sprite.getHeight() > viewportHeight/2.0f) {
+            y = (viewportHeight / 2.0f) - sprite.getHeight();
             yStep = -speed;
         }
 
-        if (y < -ch/2.0f) {
-            y = -ch/2.0f;
+        if (y < -viewportHeight/2.0f) {
+            y = -viewportHeight/2.0f;
             yStep = speed;
         }
 
-        Gdx.gl.glClearColor(0, 1, 0, 1);
+        Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         sprite.setPosition(x, y);
